@@ -1,258 +1,123 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>示例：响应式前端页面</title>
-  <!-- Tailwind CDN for quick styling (production: build your own) -->
+  <title>D2TriPO-DETR: Dual-Decoder Triple-Parallel-Output Detection Transformer</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <meta name="description" content="一个包含导航、卡片、表单与简单图表的响应式 HTML 示例页面" />
+  <meta name="description" content="D2TriPO-DETR: Dual-Decoder Triple-Parallel-Output Detection Transformer" />
   <style>
-    /* 额外小样式 */
-    .glass { background: rgba(255,255,255,0.6); backdrop-filter: blur(6px); }
+    body { background: #f8fafc; }
+    .content { max-width: 1100px; }
+    .fig { max-width: 900px; }
+    table { border-collapse: collapse; }
+    table th, table td { border: 1px solid #e6e7eb; padding: 8px 12px; }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased">
-  <!-- 顶部导航 -->
-  <header class="sticky top-0 z-50 bg-white/70 glass shadow-sm">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        <div class="flex items-center gap-3">
-          <a href="#" class="flex items-center gap-2">
-            <svg class="w-8 h-8 text-indigo-600" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 12h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span class="font-semibold text-lg">示例前端</span>
-          </a>
-        </div>
-
-        <nav class="hidden md:flex items-center gap-6 text-sm">
-          <a href="#features" class="hover:underline">功能</a>
-          <a href="#gallery" class="hover:underline">展示</a>
-          <a href="#contact" class="hover:underline">联系</a>
-          <button id="openDemo" class="px-3 py-1 rounded-md bg-indigo-600 text-white text-sm">演示</button>
-        </nav>
-
-        <!-- 移动菜单按钮 -->
-        <div class="md:hidden">
-          <button id="mobileToggle" class="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400">
-            <svg id="mobileIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- mobile menu -->
-    <div id="mobileMenu" class="md:hidden hidden px-4 pb-4">
-      <a href="#features" class="block py-2">功能</a>
-      <a href="#gallery" class="block py-2">展示</a>
-      <a href="#contact" class="block py-2">联系</a>
+<body class="antialiased text-slate-800">
+  <header class="py-8">
+    <div class="mx-auto content px-4">
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-center">D2TriPO-DETR: Dual-Decoder Triple-Parallel-Output Detection Transformer</h1>
+      <p class="mt-4 text-center text-sm text-slate-600">Author(s): <span class="italic text-slate-700">(place author names here)</span></p>
     </div>
   </header>
 
-  <!-- 主体 -->
-  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <!-- 英雄区 -->
-    <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-12">
-      <div>
-        <h1 class="text-3xl sm:text-4xl font-extrabold mb-4">现代、响应式且可扩展的前端示例</h1>
-        <p class="text-slate-600 mb-6">这个单文件示例展示了导航、响应式卡片布局、可访问表单、模态弹窗与一个简单的 Canvas 图表——适合作为小型项目或学习用途的起点。</p>
-        <div class="flex gap-3">
-          <a href="#features" class="px-4 py-2 rounded-md bg-indigo-600 text-white">查看功能</a>
-          <button id="openContact" class="px-4 py-2 rounded-md border border-indigo-600 text-indigo-600">联系我们</button>
-        </div>
+  <main class="mx-auto content px-4 pb-12">
+
+    <!-- Fig.1 -->
+    <section class="mt-6 text-center">
+      <img class="mx-auto fig rounded shadow-sm" src="https://raw.githubusercontent.com/mok1170/TII/main/Fig.%201.jpg" alt="Fig. 1" />
+    </section>
+
+    <!-- Abstract/Intro paragraph -->
+    <section class="mt-6">
+      <p class="text-base leading-7 text-slate-700">Vision-based grasping, though widely employed for industrial and household applications, still struggles with object stacking scenarios. Current methods face three major challenges: <strong>1)</strong> limited inter-object relationship understanding, <strong>2)</strong> poor grasping adaptation across different viewpoints, and <strong>3)</strong> error propagation. Inspired by distributed perception and visual adaptation in the human visual attention system, we propose <strong>D2TriPO-DETR</strong>, a dual-decoder transformer that produces three parallel outputs — object detection, manipulation relationship, and grasp detection — to address these challenges. A <em>distributed attention perception</em> module and a <em>visual attention adaptation</em> module are integrated into the two parallel decoders to improve inter-object relational reasoning and viewpoint adaptation respectively; the triple outputs are produced simultaneously, intrinsically reducing error propagation. On the Visual Manipulation Relationship Dataset, D2TriPO-DETR outperforms prior methods across key metrics (e.g., +5.3% detection precision, +6.7% relationship image accuracy, +1.5% grasp accuracy). Real-world tests confirm its effectiveness for grasping stacked objects.</p>
+    </section>
+
+    <!-- Fig.3 -->
+    <section class="mt-8 text-center">
+      <img class="mx-auto fig rounded shadow-sm" src="https://raw.githubusercontent.com/mok1170/TII/main/Fig.%203.jpg" alt="Fig. 3" />
+    </section>
+
+    <!-- Description placeholder -->
+    <section class="mt-6">
+      <div class="bg-white p-4 rounded shadow-sm text-slate-700">描述文字（在此处填写关于 Fig. 3 的说明）</div>
+    </section>
+
+    <!-- Spacer -->
+    <div class="my-8"></div>
+
+    <!-- Fig.7 left, description right -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start mt-6">
+      <div class="text-center">
+        <img class="mx-auto max-w-full rounded shadow-sm" src="https://raw.githubusercontent.com/mok1170/TII/main/Fig.%207.jpg" alt="Fig. 7" />
+      </div>
+      <div class="bg-white p-4 rounded shadow-sm text-slate-700">描述文字（在此处填写关于 Fig. 7 的说明）</div>
+    </section>
+
+    <!-- Fig.8 centered with description below -->
+    <section class="mt-8 text-center">
+      <img class="mx-auto fig rounded shadow-sm" src="https://raw.githubusercontent.com/mok1170/TII/main/Fig.%208.jpg" alt="Fig. 8" />
+      <p class="mt-3 text-slate-700 max-w-3xl mx-auto leading-7">To evaluate the applicability of our method to real-world grasping tasks, we conduct multiple experiments on a real robot platform. We test configurations with 2–5 objects (covering simple two-object cases and complex multi-object stacks). For each object count we run five trials in both cluttered and stacked settings, yielding 40 experiments in total.</p>
+    </section>
+
+    <!-- Two tables side-by-side -->
+    <section class="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="bg-white p-4 rounded shadow-sm overflow-auto">
+        <h3 class="font-semibold mb-3">Model results</h3>
+        <table class="w-full text-sm">
+          <thead class="bg-slate-50"><tr><th>Models</th><th>Cluttered Scenes (%)</th><th>Stacked Scenes (%)</th></tr></thead>
+          <tbody>
+            <tr><td>Mutli-Task CNN [8]</td><td>90.60</td><td>65.65</td></tr>
+            <tr><td>SMTNet [30]</td><td>86.13</td><td>65.00</td></tr>
+            <tr><td>EGNet [5]</td><td>93.60</td><td>69.60</td></tr>
+            <tr class="font-semibold"><td>D2TriPO-DETR (Ours)</td><td>95.71</td><td>74.29</td></tr>
+          </tbody>
+        </table>
       </div>
 
-      <div class="bg-white p-6 rounded-2xl shadow-md">
-        <h3 class="font-semibold mb-3">简单数据演示</h3>
-        <canvas id="barChart" width="400" height="240" class="w-full h-48"></canvas>
-        <p class="text-xs text-slate-500 mt-3">图表由原生 Canvas API 绘制（无第三方库）。</p>
+      <div class="bg-white p-4 rounded shadow-sm overflow-auto">
+        <h3 class="font-semibold mb-3">Per-object success rates</h3>
+        <table class="w-full text-sm">
+          <thead class="bg-slate-50"><tr><th>Objects</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead>
+          <tbody>
+            <tr><td>Cluttered Scenes</td><td>100.00%</td><td>100.00%</td><td>95.00%</td><td>92.00%</td></tr>
+            <tr><td>Stacked Scenes</td><td>90.00%</td><td>73.33%</td><td>75.00%</td><td>68.00%</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
-    <!-- 功能区 -->
-    <section id="features" class="mb-12">
-      <h2 class="text-2xl font-bold mb-4">主要功能</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <article class="p-4 bg-white rounded-lg shadow-sm">
-          <h4 class="font-semibold">响应式布局</h4>
-          <p class="text-sm text-slate-600 mt-2">使用 Tailwind utility classes 快速构建不同屏幕下的布局。</p>
-        </article>
-        <article class="p-4 bg-white rounded-lg shadow-sm">
-          <h4 class="font-semibold">可访问表单</h4>
-          <p class="text-sm text-slate-600 mt-2">包含表单验证与键盘友好行为示例。</p>
-        </article>
-        <article class="p-4 bg-white rounded-lg shadow-sm">
-          <h4 class="font-semibold">模态弹窗</h4>
-          <p class="text-sm text-slate-600 mt-2">用于演示或确认的基础模态实现，支持 Esc 关闭。</p>
-        </article>
+    <!-- Simplified descriptive paragraph (user asked to be concise) -->
+    <section class="mt-8">
+      <p class="text-slate-700 leading-7">In the <strong>cluttered</strong> setting objects are placed separately at random positions to evaluate detection among closely spaced items. The <strong>stacked</strong> setting includes occlusions from stacked objects, requiring detection, grasp estimation, and reasoning about manipulation ordering to avoid failures. Our pipeline first outputs detections, grasp candidates, and stacking relations in parallel; detections map to fixed queries to generate object indices and update an adjacency matrix P. If P is all-zero all objects are selectable; otherwise we compute successive powers of P to determine top-layer candidates. Grasp candidates with IoU &gt; 0.5 to their box are retained and ranked by confidence; execution prioritizes high-confidence candidates in the candidate set and uses inverse kinematics with closed-loop verification. After each grasp-place cycle P is updated until task completion. Compared to mainstream methods, D2TriPO-DETR shows superior relation recognition and sequence-planning, enabling stable, correctly ordered grasping in real stacked environments.</p>
+    </section>
+
+    <!-- Fig.9 left, description right -->
+    <section class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+      <div class="text-center md:text-left">
+        <img class="mx-auto md:mx-0 max-w-full rounded shadow-sm" src="https://raw.githubusercontent.com/mok1170/TII/main/Fig.%209.jpg" alt="Fig. 9" />
+      </div>
+      <div class="bg-white p-4 rounded shadow-sm text-slate-700">To quantify stability we select one representative scenario for each object count (2, 3, 4, 5) and repeat each 30 times under identical conditions. The system shows only a slight drop in success rate as object number increases, maintaining high and stable grasping performance across scales.</div>
+    </section>
+
+    <!-- Fig.10 right, description left -->
+    <section class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+      <div class="order-2 md:order-1 bg-white p-4 rounded shadow-sm text-slate-700">When objects are severely occluded they lose local distinguishing features; similar colors and close contours further complicate discrimination; insertion causes depth ambiguity. We evaluate robustness with three controlled tests (severe occlusion, similar color, insertion) each containing 20 scenes. Grasping success rates are approximately 65%, 70%, and 60% respectively — showing that despite boundary ambiguity the model still performs detection and relation inference for most samples and can complete grasps.</div>
+      <div class="order-1 md:order-2 text-center md:text-right">
+        <img class="mx-auto md:ml-auto max-w-full rounded shadow-sm" src="https://raw.githubusercontent.com/mok1170/TII/main/Fig.%2010.jpg" alt="Fig. 10" />
       </div>
     </section>
 
-    <!-- 展示区 -->
-    <section id="gallery" class="mb-12">
-      <h2 class="text-2xl font-bold mb-4">展示</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <div class="bg-white rounded-lg shadow p-4">
-          <img src="https://picsum.photos/seed/picsum1/800/450" alt="示例图片1" class="w-full h-48 object-cover rounded-md mb-3">
-          <h3 class="font-semibold">示例卡片 A</h3>
-          <p class="text-sm text-slate-600 mt-1">展示用的占位图片与文字说明。</p>
-        </div>
-        <div class="bg-white rounded-lg shadow p-4">
-          <img src="https://picsum.photos/seed/picsum2/800/450" alt="示例图片2" class="w-full h-48 object-cover rounded-md mb-3">
-          <h3 class="font-semibold">示例卡片 B</h3>
-          <p class="text-sm text-slate-600 mt-1">用于说明响应式网格如何工作。</p>
-        </div>
-      </div>
+    <!-- Video -->
+    <section class="mt-10 text-center">
+      <p class="text-sm text-slate-600 mb-2">Demonstration video (real robot experiments)</p>
+      <video controls class="mx-auto max-w-full rounded shadow-sm" src="https://raw.githubusercontent.com/mok1170/TII/main/2.mp4">Your browser does not support the video tag.</video>
     </section>
 
-    <!-- 联系表单 -->
-    <section id="contact" class="mb-12">
-      <h2 class="text-2xl font-bold mb-4">联系表单</h2>
-      <form id="contactForm" class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-white p-6 rounded-lg shadow" novalidate>
-        <div class="col-span-1 sm:col-span-2">
-          <label class="block text-sm font-medium">姓名</label>
-          <input id="name" name="name" required class="mt-1 w-full p-2 border rounded" placeholder="你的姓名" />
-          <p id="nameError" class="text-xs text-red-600 mt-1 hidden">姓名为必填项</p>
-        </div>
-
-        <div>
-          <label class="block text-sm font-medium">邮箱</label>
-          <input id="email" name="email" type="email" required class="mt-1 w-full p-2 border rounded" placeholder="email@example.com" />
-          <p id="emailError" class="text-xs text-red-600 mt-1 hidden">请输入有效邮箱</p>
-        </div>
-
-        <div>
-          <label class="block text-sm font-medium">主题</label>
-          <input id="subject" name="subject" class="mt-1 w-full p-2 border rounded" placeholder="简短说明" />
-        </div>
-
-        <div class="sm:col-span-2">
-          <label class="block text-sm font-medium">信息</label>
-          <textarea id="message" name="message" rows="4" class="mt-1 w-full p-2 border rounded" placeholder="写下你的问题或反馈..."></textarea>
-        </div>
-
-        <div class="sm:col-span-2 flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <input id="agree" type="checkbox" />
-            <label for="agree" class="text-sm">我同意隐私政策</label>
-          </div>
-          <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded">发送</button>
-        </div>
-      </form>
-    </section>
+    <footer class="mt-12 text-center text-xs text-slate-500">© 2025 D2TriPO-DETR — Content for research demonstration</footer>
 
   </main>
 
-  <!-- 模态（隐藏） -->
-  <div id="modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40">
-    <div class="bg-white rounded-lg p-6 max-w-lg w-full shadow-lg">
-      <h3 class="text-lg font-semibold">示例模态</h3>
-      <p class="text-slate-600 mt-2">这是一个简单模态。按 Esc 或点击关闭按钮关闭它。</p>
-      <div class="mt-4 text-right">
-        <button id="closeModal" class="px-3 py-1 rounded border">关闭</button>
-      </div>
-    </div>
-  </div>
-
-  <footer class="bg-white border-t mt-12">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-sm text-slate-500">© 2025 示例前端 — 仅作学习演示</div>
-  </footer>
-
-  <script>
-    // 小型交互脚本：移动菜单
-    const mobileToggle = document.getElementById('mobileToggle');
-    const mobileMenu = document.getElementById('mobileMenu');
-    mobileToggle?.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
-
-    // 模态逻辑
-    const modal = document.getElementById('modal');
-    const openDemo = document.getElementById('openDemo');
-    const openContact = document.getElementById('openContact');
-    const closeModal = document.getElementById('closeModal');
-
-    function showModal() { modal.classList.remove('hidden'); modal.classList.add('flex'); }
-    function hideModal() { modal.classList.add('hidden'); modal.classList.remove('flex'); }
-
-    openDemo?.addEventListener('click', showModal);
-    openContact?.addEventListener('click', () => { document.getElementById('contact')?.scrollIntoView({behavior:'smooth'}); });
-    closeModal?.addEventListener('click', hideModal);
-
-    // Esc 关闭模态
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideModal(); });
-
-    // 表单验证（简单示例）
-    const form = document.getElementById('contactForm');
-    form?.addEventListener('submit', (e) => {
-      e.preventDefault();
-      let valid = true;
-      const name = document.getElementById('name');
-      const email = document.getElementById('email');
-      const nameError = document.getElementById('nameError');
-      const emailError = document.getElementById('emailError');
-
-      if (!name.value.trim()) { nameError.classList.remove('hidden'); valid = false; } else { nameError.classList.add('hidden'); }
-      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.value)) { emailError.classList.remove('hidden'); valid = false; } else { emailError.classList.add('hidden'); }
-
-      if (!valid) return;
-
-      // 模拟发送（在真实项目中改为 fetch 到后端）
-      alert('表单验证通过 — 模拟发送成功！');
-      form.reset();
-    });
-
-    // 简单 Canvas 条形图（无库）
-    (function drawBarChart(){
-      const canvas = document.getElementById('barChart');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      const data = [65, 40, 80, 55, 30];
-      const labels = ['一月','二月','三月','四月','五月'];
-
-      // 自适应像素比
-      const DPR = window.devicePixelRatio || 1;
-      const rect = canvas.getBoundingClientRect();
-      canvas.width = rect.width * DPR;
-      canvas.height = rect.height * DPR;
-      ctx.scale(DPR, DPR);
-
-      // 绘制背景
-      ctx.clearRect(0,0,rect.width,rect.height);
-      const padding = 24;
-      const chartW = rect.width - padding*2;
-      const chartH = rect.height - padding*2;
-      const max = Math.max(...data) * 1.1;
-
-      // 画网格线
-      ctx.strokeStyle = 'rgba(15,23,42,0.06)';
-      ctx.lineWidth = 1;
-      for (let i=0;i<=4;i++){
-        const y = padding + (chartH/4)*i;
-        ctx.beginPath(); ctx.moveTo(padding,y); ctx.lineTo(padding+chartW,y); ctx.stroke();
-      }
-
-      // 绘制条形
-      const barW = chartW / data.length * 0.6;
-      data.forEach((v,i)=>{
-        const x = padding + (chartW / data.length) * i + (chartW/data.length - barW)/2;
-        const h = (v / max) * chartH;
-        const y = padding + chartH - h;
-        // 使用渐变
-        const grad = ctx.createLinearGradient(x,y,x,y+h);
-        grad.addColorStop(0,'rgba(99,102,241,0.95)');
-        grad.addColorStop(1,'rgba(199,210,254,0.9)');
-        ctx.fillStyle = grad;
-        ctx.fillRect(x,y,barW,h);
-
-        // 标签
-        ctx.fillStyle = 'rgba(15,23,42,0.7)';
-        ctx.font = '12px system-ui, -apple-system, "Segoe UI", Roboto';
-        ctx.textAlign = 'center';
-        ctx.fillText(labels[i], x + barW/2, padding + chartH + 16);
-      });
-
-    })();
-
-  </script>
 </body>
 </html>
