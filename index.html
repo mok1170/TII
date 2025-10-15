@@ -4,154 +4,168 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>D2TriPO-DETR: Dual-Decoder Triple-Parallel-Output Detection Transformer</title>
-  <!-- Tailwind + Inter font for a clean, modern look -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <meta name="description" content="D2TriPO-DETR: Dual-Decoder Triple-Parallel-Output Detection Transformer" />
   <style>
-    :root{--accent:#6366f1;--muted:#6b7280}
-    html,body{height:100%}
-    body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,'Helvetica Neue',Arial; background:linear-gradient(180deg,#fbfdff 0%, #f3f6ff 100%); color:#0f172a}
-    .container{max-width:1100px}
+    /* Layout and typography */
+    body { background: #f8fafc; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; color: #0f172a; }
+    .content { max-width: 1100px; margin-left: auto; margin-right: auto; padding-left: 20px; padding-right: 20px; }
+
+    /* Two-end justification for all body text, keep headings centered */
+    body, p, li, td, th, figcaption, nav, footer, .card-content { text-align: justify; text-justify: inter-word; }
+    h1, .title-center { text-align: center; text-justify: none; }
+
+    .fig { max-width: 900px; }
     .shadow-soft{box-shadow:0 8px 30px rgba(15,23,42,0.06)}
-    .glass{background:rgba(255,255,255,0.75);backdrop-filter:blur(6px)}
-    .figure-img{max-height:520px;object-fit:contain}
-    .caption{color:var(--muted);font-size:0.95rem}
-    /* responsive table niceties */
-    table th{background:#fbfbff}
+    .glass{background:rgba(255,255,255,0.85);backdrop-filter:blur(6px)}
+
+    /* Header badges and controls */
+    .brand-badge{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#6366f1,#7c3aed);display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+
+    /* Buttons for paper/code/model */
+    .action-row{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:14px}
+    .action-btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 20px;border-radius:12px;border:1px solid rgba(15,23,42,0.06);background:#111827;color:#fff;font-weight:600;text-decoration:none}
+    .action-btn.ghost{background:#ffffff;color:#111827;border:1px solid #e6e6eb}
+
+    /* tables */
+    table { border-collapse: collapse; width:100%; }
+    table th, table td { border: 1px solid #e6e7eb; padding: 8px 12px; }
+    table thead th { background:#fbfbff }
+
+    /* Responsive figures */
+    .figure-img{width:100%;height:auto;object-fit:contain;border-radius:8px}
+
+    /* Minor text styles */
+    h1{font-size:34px;font-weight:800;margin:0}
+    .muted { color:#6b7280; font-size:0.95rem }
+    .lead-card { background:#fff;padding:16px;border-radius:10px }
+
   </style>
 </head>
-<body class="antialiased text-slate-900">
-  <!-- Top bar -->
-  <nav class="border-b bg-white/60 sticky top-0 backdrop-blur z-40">
-    <div class="container mx-auto px-5 py-3 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold shadow-soft">D2</div>
-        <div>
-          <div class="text-sm font-semibold">D2TriPO-DETR</div>
-          <div class="text-xs text-gray-500">Dual-Decoder Triple-Parallel-Output Detection Transformer</div>
+<body class="antialiased text-slate-800">
+  <header class="py-6">
+    <div class="content">
+      <nav style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="brand-badge">D2</div>
+          <div>
+            <div style="font-size:14px;font-weight:600;">D2TriPO-DETR</div>
+            <div class="muted" style="margin-top:2px;">Dual-Decoder Triple-Parallel-Output Detection Transformer</div>
+          </div>
+        </div>
+        <div style="align-self:flex-end"><a href="https://github.com/Embodied-Soft-Intelligence/TII" target="_blank" rel="noopener noreferrer" style="font-size:14px;color:#374151;text-decoration:none">GitHub</a></div>
+      </nav>
+
+      <div style="text-align:center;margin-top:22px;">
+        <h1 class="title-center">D2TriPO-DETR: Dual-Decoder Triple-Parallel-Output Detection Transformer</h1>
+        <p class="muted" style="margin-top:8px">Author(s): <span style="font-style:italic">(place author names here)</span></p>
+
+        <!-- Action buttons row (paper / code / model) -->
+        <div class="action-row">
+          <a class="action-btn ghost" href="#" title="Paper (placeholder)">Paper</a>
+          <a class="action-btn" href="https://github.com/Embodied-Soft-Intelligence/TII" target="_blank" rel="noopener noreferrer">Code</a>
+          <a class="action-btn ghost" href="#" title="Model (placeholder)">Model</a>
+        </div>
+
+        <div style="margin-top:18px;" class="lead-card">
+          <p style="margin:0;line-height:1.6">Vision-based grasping, though widely employed for industrial and household applications, still struggles with object stacking scenarios. Current methods face three major challenges: <strong>1)</strong> limited inter-object relationship understanding, <strong>2)</strong> poor grasping adaptation across viewpoints, and <strong>3)</strong> error propagation. We propose <strong>D2TriPO-DETR</strong>, a dual-decoder transformer that produces three parallel outputs — object detection, manipulation relationship, and grasp detection — using distributed attention perception and visual attention adaptation to address these issues. On the Visual Manipulation Relationship Dataset our method outperforms prior work across metrics and demonstrates strong real-world performance.</p>
         </div>
       </div>
-      <div class="hidden md:flex items-center gap-6 text-sm text-slate-700">
-        <a href="#fig1" class="hover:underline">Fig.1</a>
-        <a href="#results" class="hover:underline">Results</a>
-        <a href="#real" class="hover:underline">Real-world</a>
-        <a href="#video" class="hover:underline">Video</a>
-      </div>
     </div>
-  </nav>
-
-  <header class="container mx-auto px-5 py-10 text-center">
-    <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">D2TriPO-DETR: Dual-Decoder Triple-Parallel-Output Detection Transformer</h1>
-    <p class="mt-3 text-sm text-gray-600">Author(s): <span class="italic text-slate-700">(place author names here)</span></p>
-    <p class="mt-6 max-w-2xl mx-auto text-center text-gray-700 leading-relaxed glass p-4 rounded shadow-soft">Vision-based grasping, though widely employed for industrial and household applications, still struggles with object stacking scenarios. Current methods face three major challenges: <strong>1)</strong> limited inter-object relationship understanding, <strong>2)</strong> poor grasping adaptation across viewpoints, and <strong>3)</strong> error propagation. We propose <strong>D2TriPO-DETR</strong>, a dual-decoder transformer producing three parallel outputs — object detection, manipulation relationship, and grasp detection — with modules for distributed attention perception and visual attention adaptation to address these issues. On the Visual Manipulation Relationship Dataset our method outperforms prior work across metrics and shows strong real-world performance.</p>
   </header>
 
-  <main class="container mx-auto px-5 pb-16">
+  <main class="content" style="padding-bottom:48px">
 
-    <!-- Fig 1 -->
-    <section id="fig1" class="mt-8 text-center">
-      <div class="inline-block bg-white rounded-lg p-4 shadow-soft">
-        <img src="https://raw.githubusercontent.com/mok1170/TII/main/Fig.%201.jpg" alt="Fig.1" class="w-full figure-img rounded" />
-        <div class="mt-3 caption">Fig. 1 — Overview of D2TriPO-DETR architecture and outputs.</div>
-      </div>
-    </section>
-
-    <!-- Fig 3 -->
-    <section class="mt-12 text-center">
-      <div class="bg-white rounded-lg shadow-soft p-6">
-        <img src="https://raw.githubusercontent.com/mok1170/TII/main/Fig.%203.jpg" alt="Fig.3" class="w-full figure-img rounded" />
-        <div class="mt-4 text-left text-slate-800">描述文字（在此处填写关于 Fig. 3 的说明）</div>
+    <!-- Fig.1 (no caption) -->
+    <section id="fig1" style="margin-top:18px;text-align:center">
+      <div style="display:inline-block;background:#fff;padding:12px;border-radius:10px;box-shadow:0 8px 30px rgba(15,23,42,0.06);">
+        <img class="figure-img" src="https://raw.githubusercontent.com/mok1170/TII/main/Fig.%201.jpg" alt="Fig. 1" />
       </div>
     </section>
 
     <!-- Spacer -->
-    <div class="my-10"></div>
+    <div style="height:36px"></div>
 
-    <!-- Fig 7 & description -->
-    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-      <div class="bg-white rounded-lg p-4 shadow-soft text-center">
-        <img src="https://raw.githubusercontent.com/mok1170/TII/main/Fig.%207.jpg" alt="Fig.7" class="w-full rounded figure-img" />
+    <!-- Fig.7 left, description right -->
+    <section style="display:grid;grid-template-columns:1fr;gap:18px;" class="md:grid">
+      <div style="background:#fff;padding:12px;border-radius:10px;box-shadow:0 8px 30px rgba(15,23,42,0.06);text-align:center">
+        <img class="figure-img" src="https://raw.githubusercontent.com/mok1170/TII/main/Fig.%207.jpg" alt="Fig. 7" />
       </div>
-      <div class="glass p-6 rounded-lg shadow-soft">
-        <h3 class="font-semibold text-lg">Experiment setup</h3>
-        <p class="mt-3 text-gray-700 leading-relaxed">描述文字（在此处填写关于 Fig. 7 的说明）。</p>
+      <div style="background:#fff;padding:16px;border-radius:10px;box-shadow:0 8px 30px rgba(15,23,42,0.06);">
+        <p style="margin:0;line-height:1.6">描述文字（在此处填写关于 Fig. 7 的说明）。</p>
       </div>
     </section>
 
-    <!-- Fig 8 centered with description -->
-    <section class="mt-10 text-center">
-      <div class="bg-white rounded-lg p-6 shadow-soft">
-        <img src="https://raw.githubusercontent.com/mok1170/TII/main/Fig.%208.jpg" alt="Fig.8" class="w-full figure-img rounded" />
-        <p class="mt-4 text-gray-700 max-w-3xl mx-auto leading-relaxed">To evaluate applicability to real-world grasping, we test configurations with 2–5 objects. For each object count we run five trials in both cluttered and stacked settings, yielding 40 experiments in total.</p>
+    <!-- Fig.8 centered with description -->
+    <section style="margin-top:22px;text-align:center">
+      <div style="background:#fff;padding:16px;border-radius:10px;box-shadow:0 8px 30px rgba(15,23,42,0.06);">
+        <img class="figure-img" src="https://raw.githubusercontent.com/mok1170/TII/main/Fig.%208.jpg" alt="Fig. 8" />
+        <p style="max-width:860px;margin:14px auto 0;line-height:1.6">To evaluate the applicability of our method to real-world grasping tasks, we conduct multiple experiments on a real robot platform. We test configurations with 2–5 objects (covering simple two-object cases and complex multi-object stacks). For each object count we run five trials in both cluttered and stacked settings, yielding 40 experiments in total.</p>
       </div>
     </section>
 
-    <!-- Tables side-by-side -->
-    <section id="results" class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <div class="bg-white p-6 rounded-lg shadow-soft overflow-auto">
-        <h4 class="font-semibold mb-4">Model results</h4>
-        <div class="rounded overflow-hidden border">
-          <table class="w-full text-sm">
-            <thead><tr><th class="px-4 py-2 text-left">Models</th><th class="px-4 py-2">Cluttered (%)</th><th class="px-4 py-2">Stacked (%)</th></tr></thead>
-            <tbody>
-              <tr class="odd:bg-white even:bg-slate-50"><td class="px-4 py-2">Mutli-Task CNN [8]</td><td class="px-4 py-2 text-center">90.60</td><td class="px-4 py-2 text-center">65.65</td></tr>
-              <tr class="odd:bg-white even:bg-slate-50"><td class="px-4 py-2">SMTNet [30]</td><td class="px-4 py-2 text-center">86.13</td><td class="px-4 py-2 text-center">65.00</td></tr>
-              <tr class="odd:bg-white even:bg-slate-50"><td class="px-4 py-2">EGNet [5]</td><td class="px-4 py-2 text-center">93.60</td><td class="px-4 py-2 text-center">69.60</td></tr>
-              <tr class="font-semibold bg-gradient-to-r from-indigo-50 to-white"><td class="px-4 py-2">D2TriPO-DETR (Ours)</td><td class="px-4 py-2 text-center">95.71</td><td class="px-4 py-2 text-center">74.29</td></tr>
-            </tbody>
-          </table>
-        </div>
+    <!-- Two tables side-by-side -->
+    <section id="results" style="margin-top:24px;display:grid;grid-template-columns:1fr;gap:18px;">
+      <div style="background:#fff;padding:12px;border-radius:10px;box-shadow:0 8px 30px rgba(15,23,42,0.06);overflow:auto">
+        <h3 style="margin:0 0 10px 0;font-weight:600">Model results</h3>
+        <table>
+          <thead><tr><th>Models</th><th>Cluttered Scenes (%)</th><th>Stacked Scenes (%)</th></tr></thead>
+          <tbody>
+            <tr><td>Mutli-Task CNN [8]</td><td>90.60</td><td>65.65</td></tr>
+            <tr><td>SMTNet [30]</td><td>86.13</td><td>65.00</td></tr>
+            <tr><td>EGNet [5]</td><td>93.60</td><td>69.60</td></tr>
+            <tr style="font-weight:600"><td>D2TriPO-DETR (Ours)</td><td>95.71</td><td>74.29</td></tr>
+          </tbody>
+        </table>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow-soft overflow-auto">
-        <h4 class="font-semibold mb-4">Per-object success rates</h4>
-        <div class="rounded overflow-hidden border">
-          <table class="w-full text-sm">
-            <thead><tr><th class="px-4 py-2">Objects</th><th class="px-4 py-2">2</th><th class="px-4 py-2">3</th><th class="px-4 py-2">4</th><th class="px-4 py-2">5</th></tr></thead>
-            <tbody>
-              <tr class="odd:bg-white even:bg-slate-50"><td class="px-4 py-2">Cluttered Scenes</td><td class="px-4 py-2 text-center">100.00%</td><td class="px-4 py-2 text-center">100.00%</td><td class="px-4 py-2 text-center">95.00%</td><td class="px-4 py-2 text-center">92.00%</td></tr>
-              <tr class="odd:bg-white even:bg-slate-50"><td class="px-4 py-2">Stacked Scenes</td><td class="px-4 py-2 text-center">90.00%</td><td class="px-4 py-2 text-center">73.33%</td><td class="px-4 py-2 text-center">75.00%</td><td class="px-4 py-2 text-center">68.00%</td></tr>
-            </tbody>
-          </table>
-        </div>
+      <div style="background:#fff;padding:12px;border-radius:10px;box-shadow:0 8px 30px rgba(15,23,42,0.06);overflow:auto">
+        <h3 style="margin:0 0 10px 0;font-weight:600">Per-object success rates</h3>
+        <table>
+          <thead><tr><th>Objects</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead>
+          <tbody>
+            <tr><td>Cluttered Scenes</td><td>100.00%</td><td>100.00%</td><td>95.00%</td><td>92.00%</td></tr>
+            <tr><td>Stacked Scenes</td><td>90.00%</td><td>73.33%</td><td>75.00%</td><td>68.00%</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
-    <!-- Concise descriptive paragraph -->
-    <section class="mt-10 bg-white p-6 rounded-lg shadow-soft">
-      <h4 class="font-semibold">Experiment summary</h4>
-      <p class="mt-3 text-gray-700 leading-relaxed">In the <strong>cluttered</strong> setting objects are placed separately to test detection among nearby items. The <strong>stacked</strong> setting introduces occlusions that require not only detection and grasp estimation but also reasoning about manipulation order to avoid failures. Our pipeline outputs detections, grasp candidates, and stacking relations in parallel; detections map to fixed queries to produce object indices and update an adjacency matrix P. If P is all-zero all objects are selectable; otherwise successive powers of P identify top-layer candidates. We keep grasp candidates with IoU &gt; 0.5, rank them by confidence, and execute high-confidence candidates via inverse kinematics with closed-loop verification, updating P after each grasp–place cycle. D2TriPO-DETR shows superior relation recognition and sequence-planning, enabling robust ordered grasping in stacked scenes.</p>
+    <!-- Experiment summary -->
+    <section style="margin-top:22px">
+      <div style="background:#fff;padding:16px;border-radius:10px;box-shadow:0 8px 30px rgba(15,23,42,0.06);">
+        <h4 style="margin:0 0 8px 0;font-weight:600">Experiment summary</h4>
+        <p style="margin:0;line-height:1.6">In the <strong>cluttered</strong> setting objects are placed separately at random positions to evaluate detection among closely spaced items. The <strong>stacked</strong> setting includes occlusions from stacked objects, requiring detection, grasp estimation, and reasoning about manipulation ordering to avoid failures. Our pipeline first outputs detections, grasp candidates, and stacking relations in parallel; detections map to fixed queries to generate object indices and update an adjacency matrix P. If P is all-zero all objects are selectable; otherwise we compute successive powers of P to determine top-layer candidates. Grasp candidates with IoU &gt; 0.5 to their box are retained and ranked by confidence; execution prioritizes high-confidence candidates in the candidate set and uses inverse kinematics with closed-loop verification. After each grasp-place cycle P is updated until task completion. Compared to mainstream methods, D2TriPO-DETR shows superior relation recognition and sequence-planning, enabling stable, correctly ordered grasping in real stacked environments.</p>
+      </div>
     </section>
 
-    <!-- Fig 9 + Fig 10 sections -->
-    <section id="real" class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-      <div class="bg-white p-6 rounded-lg shadow-soft">
-        <img src="https://raw.githubusercontent.com/mok1170/TII/main/Fig.%209.jpg" alt="Fig.9" class="w-full rounded figure-img" />
+    <!-- Fig.9 + Fig.10 -->
+    <section style="margin-top:22px;display:grid;grid-template-columns:1fr;gap:18px;">
+      <div style="background:#fff;padding:12px;border-radius:10px;box-shadow:0 8px 30px rgba(15,23,42,0.06);text-align:center">
+        <img class="figure-img" src="https://raw.githubusercontent.com/mok1170/TII/main/Fig.%209.jpg" alt="Fig. 9" />
       </div>
-      <div class="glass p-6 rounded-lg shadow-soft">
-        <h4 class="font-semibold">Stability evaluation</h4>
-        <p class="mt-3 text-gray-700 leading-relaxed">We selected representative scenarios with 2–5 objects and repeated each 30 times. The system shows only a modest drop in success rate as object count increases, maintaining high and stable performance across scales.</p>
+      <div style="background:#fff;padding:12px;border-radius:10px;box-shadow:0 8px 30px rgba(15,23,42,0.06);">
+        <p style="margin:0;line-height:1.6">To quantify stability we select one representative scenario for each object count (2, 3, 4, 5) and repeat each 30 times under identical conditions. The system shows only a slight drop in success rate as object number increases, maintaining high and stable grasping performance across scales.</p>
       </div>
 
-      <div class="order-last md:order-none bg-white p-6 rounded-lg shadow-soft">
-        <img src="https://raw.githubusercontent.com/mok1170/TII/main/Fig.%2010.jpg" alt="Fig.10" class="w-full rounded figure-img" />
+      <div style="background:#fff;padding:12px;border-radius:10px;box-shadow:0 8px 30px rgba(15,23,42,0.06);text-align:center">
+        <img class="figure-img" src="https://raw.githubusercontent.com/mok1170/TII/main/Fig.%2010.jpg" alt="Fig. 10" />
       </div>
-      <div class="glass p-6 rounded-lg shadow-soft">
-        <h4 class="font-semibold">Robustness under boundary ambiguity</h4>
-        <p class="mt-3 text-gray-700 leading-relaxed">Under severe occlusion, similar colors, and insertion cases we observe grasp success rates of roughly 65%, 70%, and 60% respectively. Although boundary ambiguity reduces performance, the model still detects objects and infers stacking relations for most scenes, enabling successful grasps.</p>
+      <div style="background:#fff;padding:12px;border-radius:10px;box-shadow:0 8px 30px rgba(15,23,42,0.06);">
+        <p style="margin:0;line-height:1.6">When objects are severely occluded they lose local distinguishing features; similar colors and close contours further complicate discrimination; insertion causes depth ambiguity. We evaluate robustness with three controlled tests (severe occlusion, similar color, insertion) each containing 20 scenes. Grasping success rates are approximately 65%, 70%, and 60% respectively — showing that despite boundary ambiguity the model still performs detection and relation inference for most samples and can complete grasps.</p>
       </div>
     </section>
 
     <!-- Video -->
-    <section id="video" class="mt-12 text-center">
-      <div class="bg-white p-6 rounded-lg shadow-soft inline-block">
-        <p class="text-sm text-gray-600 mb-3">Demonstration video — real robot experiments</p>
-        <video controls class="w-full max-w-2xl rounded" src="https://raw.githubusercontent.com/mok1170/TII/main/2.mp4">Your browser does not support the video tag.</video>
+    <section style="margin-top:22px;text-align:center">
+      <div style="background:#fff;padding:12px;border-radius:10px;box-shadow:0 8px 30px rgba(15,23,42,0.06);display:inline-block">
+        <p class="muted" style="margin:0 0 8px 0">Demonstration video (real robot experiments)</p>
+        <video controls style="width:100%;max-width:760px;border-radius:8px" src="https://raw.githubusercontent.com/mok1170/TII/main/2.mp4">Your browser does not support the video tag.</video>
       </div>
     </section>
 
-    <footer class="mt-12 text-center text-sm text-gray-500">© 2025 D2TriPO-DETR — Research demonstration</footer>
+    <footer style="margin-top:28px;text-align:center;color:#6b7280;font-size:12px">© 2025 D2TriPO-DETR — Content for research demonstration</footer>
+
   </main>
 
 </body>
