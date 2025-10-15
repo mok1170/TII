@@ -48,10 +48,6 @@
       padding: 6px 8px; /* Reduced padding */
       text-align: center;
     }
-    th:first-child, td:first-child {
-      text-align: center;
-      min-width: 140px; /* Reduced min-width */
-    }
     /* Make table headers smaller */
     table th {
       font-size: 0.75rem;
@@ -61,6 +57,16 @@
     .line-break {
       white-space: normal;
       line-height: 1.2;
+    }
+    /* Specific column widths for success rates table */
+    .success-table th:first-child,
+    .success-table td:first-child {
+      width: 25%; /* Narrower first column */
+      min-width: 80px;
+    }
+    .success-table th:not(:first-child),
+    .success-table td:not(:first-child) {
+      width: 18.75%; /* Wider data columns */
     }
   </style>
 </head>
@@ -168,7 +174,7 @@
       <div class="bg-white p-6 rounded-lg shadow-soft">
         <h4 class="font-semibold mb-4 text-center">Per-object success rates</h4>
         <div class="rounded overflow-hidden border table-container">
-          <table class="w-full">
+          <table class="w-full success-table">
             <thead>
               <tr>
                 <th class="px-2 py-2 text-center">Objects</th>
