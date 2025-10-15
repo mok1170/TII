@@ -49,13 +49,18 @@
       text-align: center;
     }
     th:first-child, td:first-child {
-      text-align: left;
+      text-align: center;
       min-width: 140px; /* Reduced min-width */
     }
     /* Make table headers smaller */
     table th {
       font-size: 0.75rem;
       font-weight: 600;
+    }
+    /* Line break for table cells */
+    .line-break {
+      white-space: normal;
+      line-height: 1.2;
     }
   </style>
 </head>
@@ -71,9 +76,9 @@
         </div>
       </div>
       <div class="hidden md:flex items-center gap-6 text-sm text-slate-700">
-        <a href="#fig1" class="hover:underline">Fig.1</a>
+        <a href="#fig1" class="hover:underline">Schematic</a>
         <a href="#results" class="hover:underline">Results</a>
-        <a href="#summary" class="hover:underline">Experiment Summary</a>
+        <a href="#summary" class="hover:underline">Real-World Experiment</a>
         <a href="#video" class="hover:underline">Video</a>
       </div>
     </div>
@@ -124,34 +129,34 @@
     <!-- Tables side-by-side -->
     <section id="results" class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-6 uniform-width">
       <div class="bg-white p-6 rounded-lg shadow-soft">
-        <h4 class="font-semibold mb-4 text-justify">Model results</h4>
+        <h4 class="font-semibold mb-4 text-center">Model results</h4>
         <div class="rounded overflow-hidden border table-container">
           <table class="w-full">
             <thead>
               <tr>
-                <th class="px-2 py-2 text-left">Models</th>
-                <th class="px-2 py-2">Cluttered (%)</th>
-                <th class="px-2 py-2">Stacked (%)</th>
+                <th class="px-2 py-2 text-center">Models</th>
+                <th class="px-2 py-2 text-center">Cluttered (%)</th>
+                <th class="px-2 py-2 text-center">Stacked (%)</th>
               </tr>
             </thead>
             <tbody>
               <tr class="odd:bg-white even:bg-slate-50">
-                <td class="px-2 py-2">Mutli-Task CNN [8]</td>
+                <td class="px-2 py-2 text-center">Mutli-Task CNN [8]</td>
                 <td class="px-2 py-2 text-center">90.60</td>
                 <td class="px-2 py-2 text-center">65.65</td>
               </tr>
               <tr class="odd:bg-white even:bg-slate-50">
-                <td class="px-2 py-2">SMTNet [30]</td>
+                <td class="px-2 py-2 text-center">SMTNet [30]</td>
                 <td class="px-2 py-2 text-center">86.13</td>
                 <td class="px-2 py-2 text-center">65.00</td>
               </tr>
               <tr class="odd:bg-white even:bg-slate-50">
-                <td class="px-2 py-2">EGNet [5]</td>
+                <td class="px-2 py-2 text-center">EGNet [5]</td>
                 <td class="px-2 py-2 text-center">93.60</td>
                 <td class="px-2 py-2 text-center">69.60</td>
               </tr>
               <tr class="font-semibold bg-gradient-to-r from-indigo-50 to-white">
-                <td class="px-2 py-2">D2TriPO-DETR (Ours)</td>
+                <td class="px-2 py-2 text-center">D2TriPO-DETR (Ours)</td>
                 <td class="px-2 py-2 text-center">95.71</td>
                 <td class="px-2 py-2 text-center">74.29</td>
               </tr>
@@ -161,28 +166,28 @@
       </div>
 
       <div class="bg-white p-6 rounded-lg shadow-soft">
-        <h4 class="font-semibold mb-4 text-justify">Per-object success rates</h4>
+        <h4 class="font-semibold mb-4 text-center">Per-object success rates</h4>
         <div class="rounded overflow-hidden border table-container">
           <table class="w-full">
             <thead>
               <tr>
-                <th class="px-2 py-2">Objects</th>
-                <th class="px-2 py-2">2</th>
-                <th class="px-2 py-2">3</th>
-                <th class="px-2 py-2">4</th>
-                <th class="px-2 py-2">5</th>
+                <th class="px-2 py-2 text-center">Objects</th>
+                <th class="px-2 py-2 text-center">2</th>
+                <th class="px-2 py-2 text-center">3</th>
+                <th class="px-2 py-2 text-center">4</th>
+                <th class="px-2 py-2 text-center">5</th>
               </tr>
             </thead>
             <tbody>
               <tr class="odd:bg-white even:bg-slate-50">
-                <td class="px-2 py-2">Cluttered Scenes</td>
+                <td class="px-2 py-2 text-center line-break">Cluttered<br>Scenes</td>
                 <td class="px-2 py-2 text-center">100.00%</td>
                 <td class="px-2 py-2 text-center">100.00%</td>
                 <td class="px-2 py-2 text-center">95.00%</td>
                 <td class="px-2 py-2 text-center">92.00%</td>
               </tr>
               <tr class="odd:bg-white even:bg-slate-50">
-                <td class="px-2 py-2">Stacked Scenes</td>
+                <td class="px-2 py-2 text-center line-break">Stacked<br>Scenes</td>
                 <td class="px-2 py-2 text-center">90.00%</td>
                 <td class="px-2 py-2 text-center">73.33%</td>
                 <td class="px-2 py-2 text-center">75.00%</td>
