@@ -8,30 +8,38 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <meta name="description" content="D2TriPO-DETR: Dual-Decoder Triple-Parallel-Output Detection Transformer" />
   <style>
-    :root{--accent:#1f2937;--brand:#111827;--muted:#6b7280}
+    :root{--brand:#0f172a;--muted:#6b7280;--accent:#111827}
     html,body{height:100%}
-    body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,'Helvetica Neue',Arial; background:#fff; color:var(--brand);}
-    /* Force full two-end justification for all textual elements as requested */
-    body, h1, h2, h3, h4, p, li, td, th, figcaption, nav, footer, a { text-align: justify; text-justify: inter-word; }
+    body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,'Helvetica Neue',Arial; background:#ffffff; color:var(--brand);}
 
-    .container{max-width:1100px}
+    /* Page width control: leave side whitespace */
+    .container{max-width:920px;margin-left:auto;margin-right:auto;padding-left:22px;padding-right:22px}
+
+    /* Text justification: apply to content paragraphs but keep headings centered */
+    body, p, li, td, th, figcaption, footer, nav { text-align: justify; text-justify: inter-word; }
+    h1, .title-center { text-align: center; text-justify: none; }
+
     .shadow-soft{box-shadow:0 8px 30px rgba(17,24,39,0.06)}
-    .glass{background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(250,250,250,0.9));backdrop-filter:blur(4px)}
+    .glass{background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(250,250,250,0.95));backdrop-filter:blur(4px)}
     .figure-img{max-height:520px;object-fit:contain}
     .caption{color:var(--muted);font-size:0.95rem}
-    /* OpenVLA-like simple, research-project look: restrained spacing and clean tables */
-    header a.code-link{display:inline-block;padding:8px 12px;border-radius:8px;background:transparent;border:1px solid #e6e6e6;font-size:0.9rem}
-    table th{background:#fafafa}
-    /* make headings visually prominent while still justified */
-    h1{font-weight:800; font-size:2.6rem; margin:0; line-height:1.05}
+    header a.code-link{display:inline-block;padding:8px 14px;border-radius:10px;background:transparent;border:1px solid #e6e6e6;font-size:0.95rem}
+
+    h1{font-weight:800; font-size:2.4rem; margin:0; line-height:1.05}
     .mute-small{color:var(--muted);font-size:0.95rem}
 
+    /* Button style for paper/code/model */
+    .action-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 18px;border-radius:14px;border:1px solid #e6e6e6;background:#111827;color:white;text-decoration:none;font-weight:600}
+    .action-btn.ghost{background:#f8fafc;color:var(--brand);border:1px solid #e6e6e6}
+
+    /* Responsive tweaks */
+    @media (max-width:640px){ .action-btn{width:100%;padding:12px 16px;border-radius:10px} .btn-row{flex-direction:column;gap:10px} }
   </style>
 </head>
 <body class="antialiased text-slate-900">
-  <!-- Top bar with Code link similar to OpenVLA -->
+  <!-- Top bar (keeps yesterday's style) -->
   <nav class="border-b py-3">
-    <div class="container mx-auto px-5 flex items-center justify-between">
+    <div class="container flex items-center justify-between">
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 rounded-lg bg-gray-900 flex items-center justify-center text-white font-bold">D2</div>
         <div>
@@ -39,33 +47,38 @@
           <div class="mute-small">Dual-Decoder Triple-Parallel-Output Detection Transformer</div>
         </div>
       </div>
-      <div class="">
+      <div>
         <a class="code-link" href="https://github.com/Embodied-Soft-Intelligence/TII" target="_blank" rel="noopener noreferrer">Code</a>
       </div>
     </div>
   </nav>
 
-  <header class="container mx-auto px-5 py-10">
-    <h1 class="leading-tight">D2TriPO-DETR: Dual-Decoder Triple-Parallel-Output Detection Transformer</h1>
+  <header class="container py-10 text-center">
+    <!-- Big bold title (centered) -->
+    <h1 class="title-center">D2TriPO-DETR: Dual-Decoder Triple-Parallel-Output Detection Transformer</h1>
     <p class="mt-3 mute-small">Author(s): <span class="italic">(place author names here)</span></p>
 
-    <div class="mt-6 bg-white p-4 rounded shadow-soft">
+    <!-- Button row (paper / code / model) under author line -->
+    <div class="mt-5 flex justify-center items-center gap-4 btn-row">
+      <a class="action-btn ghost" href="#" title="Paper link placeholder">Paper</a>
+      <a class="action-btn" href="https://github.com/Embodied-Soft-Intelligence/TII" target="_blank" rel="noopener noreferrer">Code</a>
+      <a class="action-btn ghost" href="#" title="Model link placeholder">Model</a>
+    </div>
+
+    <div class="mt-6 bg-white p-4 rounded shadow-soft text-left">
       <p class="leading-relaxed">Vision-based grasping, though widely employed for industrial and household applications, still struggles with object stacking scenarios. Current methods face three major challenges: <strong>1)</strong> limited inter-object relationship understanding, <strong>2)</strong> poor grasping adaptation across viewpoints, and <strong>3)</strong> error propagation. We propose <strong>D2TriPO-DETR</strong>, a dual-decoder transformer that outputs three parallel results — object detection, manipulation relationship, and grasp detection — using distributed attention perception and visual attention adaptation to address these issues. On the Visual Manipulation Relationship Dataset our method outperforms prior work across metrics and demonstrates strong real-world performance.</p>
     </div>
   </header>
 
-  <main class="container mx-auto px-5 pb-16">
+  <main class="container pb-16">
 
-    <!-- Fig 1 (no caption now) -->
+    <!-- Fig 1 (no caption) -->
     <section id="fig1" class="mt-6">
       <div class="bg-white rounded-lg p-4 shadow-soft">
         <img src="https://raw.githubusercontent.com/mok1170/TII/main/Fig.%201.jpg" alt="Fig.1" class="w-full figure-img rounded" />
       </div>
     </section>
 
-    <!-- Removed Fig.3 as requested -->
-
-    <!-- Spacer -->
     <div class="my-8"></div>
 
     <!-- Fig 7 & description -->
